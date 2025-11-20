@@ -1,131 +1,69 @@
-🧠 Alzheimer’s MRI Prediction – Cognify
+**🧠 Alzheimer’s MRI Prediction – Cognify**
 =======================================
 
 A deep learning web application for predicting Alzheimer’s disease stage from MRI scans.
 
-📌 **Overview**
----------------
+## 📌 **Overview**
 
-Cognify is a **CNN-based medical image classification system** designed to identify Alzheimer’s Disease stages using MRI scans.The project includes:
 
-*   A **trained TensorFlow model (alzheimers\_cnn\_model.h5)**
-    
-*   A **Streamlit web interface (app.py)**
-    
-*   **Training and test datasets (train.parquet, test.parquet)**
-    
-*   **A fully reproducible pipeline (cognify.ipynb)**
-    
-
+Cognify is a **CNN-based medical image classification system** designed to identify Alzheimer’s Disease stages using MRI scans.
 It provides fast, user-friendly predictions useful for educational and research purposes.
 
 > ⚠️ **This tool is not intended for clinical or medical diagnosis.**
 
-🎯 **Objective**
-----------------
+## 🎯 **Objective**
+Cognify is a deep learning web application that classifies 128×128 grayscale MRI images into four Alzheimer’s stages:
 
-The goal of this project is to:
+* 😊 Normal
 
-1.  Build a **Convolutional Neural Network (CNN)** capable of classifying MRI images into Alzheimer’s stages:
-    
-    *   Normal
-        
-    *   Mild
-        
-    *   Moderate
-        
-    *   Severe
-        
-2.  Provide a **simple web interface** where users can upload an MRI image and receive a prediction in seconds.
-    
-3.  Demonstrate a full ML workflow:
-    
-    *   Data preprocessing
-        
-    *   Training
-        
-    *   Evaluation
-        
-    *   Deployment with Streamlit
-        
+* 🙂 Mild
 
-🧩 **How It Works**
--------------------
+* 😐 Moderate
 
-### **1️⃣ Model Training**
+* 😱 Severe
 
-The CNN model was trained on 128×128 grayscale MRI images using a dataset stored in the parquet files:
+It predicts the most likely stage and shows class probabilities, helping visualize risk and understanding of the disease.
+## 🧩 **How It Works**
 
-*   **train.parquet** — training samples
-    
-*   **test.parquet** — evaluation samples
-    
+### 🏗️ **Project Structure**
 
-Training code is available in cognify.ipynb.
-
-### **2️⃣ Preprocessing**
-
-Uploaded MRI images are:
-
-*   Converted to grayscale
-    
-*   Resized to **128×128**
-    
-*   Normalized (divided by 255.0)
-    
-*   Expanded to shape (1, 128, 128, 1)
-    
-
-### **3️⃣ Prediction**
-
-The model outputs 4 probabilities:
-
-Class :
-
-0 → Normal
-
-1 → Mild
-
-2 → Moderate
-
-3 → Severe
-
-The Streamlit app displays both:
-
-*   The predicted class
-    
-*   Probabilities for each stage
-    
-
-🏗️ **Project Structure**
--------------------------
 ```
-📦 Alzheimer-s-MRI-Prediction-System /
+📦 Alzheimer-s-MRI-Prediction-System/
 │
-├── app.py                    # Streamlit web app
+├── app.py                    # Streamlit frontend
+├── backend.py                # FastAPI backend
 ├── alzheimers_cnn_model.h5   # Trained CNN model
 ├── train.parquet             # Training dataset
 ├── test.parquet              # Test dataset
 ├── cognify.ipynb             # Training / EDA notebook
 ├── requirements.txt          # Python dependencies
-└── README.md                 # Project documentation
+├── README.md                 # Project documentation
 └── images/
-      streamlit_demo.jpg
+      └── streamlit_demo.jpg
+
 ```
+### 🌐 **Streamlit Web App**
 
-🌐 **Streamlit Web App**
-------------------------
-
-### 🖼️ **Screenshot**
+🖼️ **Screenshot**
 
 ![Streamlit Screenshot](Images/streamlit_demo.jpg) 
 
-🚀 **How to Run the App**
--------------------------
+## **🌐 Deployment**
 
+The project is fully deployed on Render:
+
+Backend API:
+https://alzheimer-s-mri-prediction-system.onrender.com
+
+Streamlit frontend:
+https://alzheimer-mri-streamlit.onrender.com
+
+
+## 🚀 **How to Deploy Locally**
 ### **1️⃣ Clone the Repository**
 ```bash
 git Clone https://github.com/MohamedAli1937/Alzheimer-s-MRI-Prediction-System.git
+cd Alzheimer-s-MRI-Prediction-System
 ```
 
 ### **2️⃣ Create a Virtual Environment**
@@ -139,17 +77,26 @@ venv\Scripts\activate     # Windows
 ```bash
 pip install -r requirements.txt  
 ```
+### **4️⃣ Run the FastAPI backend**
+```bash
+uvicorn backend:app --host 0.0.0.0 --port 8000
+```
 
-### **4️⃣ Run the Streamlit App**
+### **5️⃣ Run the Streamlit App**
 
 ```bash
 streamlit run app.py  
 ```
+    
 
+## 📈 **Model Performance**
 
-🧰 **Tech Stack**
------------------
+Example: 
 
+**Training Accuracy: 81.59%**
+
+**Validation Accuracy: 73.8%**
+## 🧰 **Tech Stack**
 *   **Python 3.10+**
     
 *   **TensorFlow / Keras**
@@ -165,16 +112,8 @@ streamlit run app.py
 *   **Pillow**
     
 
-📈 **Model Performance**
-------------------------
 
-**Training Accuracy: 81.59%**
-
-**Validation Accuracy: 73.8%**
-
-
-🔮 **Future Improvements**
---------------------------
+## 🔮 **Future Improvements**
 
 *   Add Grad-CAM heatmaps for explainability
     
@@ -185,7 +124,6 @@ streamlit run app.py
 *   Faster inference using TensorFlow Lite
     
 
-🙌 **Acknowledgements**
------------------------
+## 🙌 **Acknowledgements**
 
 Special thanks to all open MRI datasets used in research and experimentation.
