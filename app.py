@@ -2,8 +2,8 @@ import streamlit as st
 from PIL import Image
 import requests
 
-# ✅ Update this to your deployed FastAPI URL
-API_URL = "https://your-fastapi-service.onrender.com/predict"
+# ✅ Update this to deployed FastAPI URL
+API_URL = "https://alzheimer-s-mri-prediction-system.onrender.com"
 class_names = ["Normal", "Mild", "Moderate", "Severe"]
 
 st.set_page_config(page_title="Alzheimer's MRI Predictor", layout="centered")
