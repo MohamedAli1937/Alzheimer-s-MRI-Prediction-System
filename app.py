@@ -18,8 +18,8 @@ if uploaded_file:
 
     if st.button("Predict"):
         with st.spinner("Analyzing MRI..."):
-            # Send the file to FastAPI
-            files = {"file": (uploaded_file.name, uploaded_file, uploaded_file.type)}
+            # Send the file to FastAPI correctly
+            files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
             try:
                 response = requests.post(API_URL, files=files)
                 response.raise_for_status()
@@ -33,3 +33,5 @@ if uploaded_file:
                 for i, prob in enumerate(data['probabilities']):
                     st.write(f"{class_names[i]}: {prob:.2f}")
                     st.progress(float(prob))
+
+
