@@ -2,26 +2,34 @@ import streamlit as st
 from PIL import Image
 import requests
 
-API_URL = "http://127.0.0.1:8000/predict"
+# ✅ Update this to your deployed FastAPI URL
+API_URL = "https://your-fastapi-service.onrender.com/predict"
 class_names = ["Normal", "Mild", "Moderate", "Severe"]
 
 st.set_page_config(page_title="Alzheimer's MRI Predictor", layout="centered")
 st.title("🧠 Alzheimer's MRI Prediction System")
 
-uploaded_file = st.file_uploader("Choose an MRI image...", type=["png","jpg","jpeg"])
+# File uploader
+uploaded_file = st.file_uploader("Choose an MRI image...", type=["png", "jpg", "jpeg"])
 
 if uploaded_file:
     image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded MRI Image", width=250)
+    st.image(image, caption="Uploaded MRI Image", width=300)
 
     if st.button("Predict"):
         with st.spinner("Analyzing MRI..."):
-            response = requests.post(API_URL, files={"file": uploaded_file.getvalue()})
-            data = response.json()
-
-        st.success(f"Prediction: **{data['prediction']}** (Class {data['index']})")
-        
-        st.markdown("### Class Probabilities:")
-        for i, prob in enumerate(data['probabilities']):
-            st.write(f"{class_names[i]}: {prob:.2f}")
-            st.progress(float(prob))
+            # Send the file to FastAPI
+            files = {"file": (uploaded_file.name, uploaded_file, uploaded_file.type)}
+            try:
+                response = requests.post(API_URL, files=files)
+                response.raise_for_status()
+                data = response.json()
+            except requests.exceptions.RequestException as e:
+                st.error(f"API request failed: {e}")
+            else:
+                st.success(f"Prediction: **{data['prediction']}** (Class {data['index']})")
+                
+                st.markdown("### Class Probabilities:")
+                for i, prob in enumerate(data['probabilities']):
+                    st.write(f"{class_names[i]}: {prob:.2f}")
+                    st.progress(float(prob))
