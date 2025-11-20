@@ -3,7 +3,7 @@ from PIL import Image
 import requests
 
 # ✅ Update this to deployed FastAPI URL
-API_URL = "https://alzheimer-s-mri-prediction-system.onrender.com"
+API_URL = "https://alzheimer-s-mri-prediction-system.onrender.com/predict"
 class_names = ["Normal", "Mild", "Moderate", "Severe"]
 
 st.set_page_config(page_title="Alzheimer's MRI Predictor", layout="centered")
